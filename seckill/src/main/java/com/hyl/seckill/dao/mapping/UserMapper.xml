@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hyl.seckill.dao.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.hyl.seckill.entity.User" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="salt" property="salt" jdbcType="VARCHAR" />
+    <result column="head" property="head" jdbcType="VARCHAR" />
+    <result column="login_count" property="loginCount" jdbcType="INTEGER" />
+    <result column="register_date" property="registerDate" jdbcType="TIMESTAMP" />
+    <result column="last_login_date" property="lastLoginDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_name, phone, password, salt, head, login_count, register_date, last_login_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hyl.seckill.entity.User" >
+    insert into user (id, user_name, phone, 
+      password, salt, head, 
+      login_count, register_date, last_login_date
+      )
+    values (#{id,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, #{head,jdbcType=VARCHAR}, 
+      #{loginCount,jdbcType=INTEGER}, #{registerDate,jdbcType=TIMESTAMP}, #{lastLoginDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hyl.seckill.entity.User" >
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="salt != null" >
+        salt,
+      </if>
+      <if test="head != null" >
+        head,
+      </if>
+      <if test="loginCount != null" >
+        login_count,
+      </if>
+      <if test="registerDate != null" >
+        register_date,
+      </if>
+      <if test="lastLoginDate != null" >
+        last_login_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null" >
+        #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="head != null" >
+        #{head,jdbcType=VARCHAR},
+      </if>
+      <if test="loginCount != null" >
+        #{loginCount,jdbcType=INTEGER},
+      </if>
+      <if test="registerDate != null" >
+        #{registerDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginDate != null" >
+        #{lastLoginDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hyl.seckill.entity.User" >
+    update user
+    <set >
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null" >
+        salt = #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="head != null" >
+        head = #{head,jdbcType=VARCHAR},
+      </if>
+      <if test="loginCount != null" >
+        login_count = #{loginCount,jdbcType=INTEGER},
+      </if>
+      <if test="registerDate != null" >
+        register_date = #{registerDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginDate != null" >
+        last_login_date = #{lastLoginDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hyl.seckill.entity.User" >
+    update user
+    set user_name = #{userName,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      salt = #{salt,jdbcType=VARCHAR},
+      head = #{head,jdbcType=VARCHAR},
+      login_count = #{loginCount,jdbcType=INTEGER},
+      register_date = #{registerDate,jdbcType=TIMESTAMP},
+      last_login_date = #{lastLoginDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="findUserById" parameterType="long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"></include>
+    from user
+    where id = #{id}
+  </select>
+
+  <select id="findUserByPhone" parameterType="string" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"></include>
+    from user
+    where phone = #{mobile}
+  </select>
+
+</mapper>
